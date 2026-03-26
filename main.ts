@@ -19,8 +19,8 @@ neopixelStrip.setPixelColor(3, neopixel.colors(NeoPixelColors.Black))
 neopixelStrip.show()
 basic.showIcon(IconNames.Happy)
 
+// gets the distance
 input.onButtonPressed(Button.A, function () {
-    // gets the distance
     distanceNumber = sonar.ping(
         DigitalPin.P0,
         DigitalPin.P1,
@@ -30,20 +30,21 @@ input.onButtonPressed(Button.A, function () {
     basic.showNumber(distanceNumber)
     basic.showString('cm')
     if (distanceNumber < 10) {
-        // if distance is less than to 10 cm
+        // if distance is less than 10 cm
         basic.showIcon(IconNames.No)
         neopixelStrip.setPixelColor(0, neopixel.colors(NeoPixelColors.Red))
         neopixelStrip.setPixelColor(1, neopixel.colors(NeoPixelColors.Red))
         neopixelStrip.setPixelColor(2, neopixel.colors(NeoPixelColors.Red))
         neopixelStrip.setPixelColor(3, neopixel.colors(NeoPixelColors.Red))
     } else {
-        // if distance is more than or equal to 10 cm
+        // if distance is more than or equal 10 cm
         basic.showIcon(IconNames.Yes)
         neopixelStrip.setPixelColor(0, neopixel.colors(NeoPixelColors.Green))
         neopixelStrip.setPixelColor(1, neopixel.colors(NeoPixelColors.Green))
         neopixelStrip.setPixelColor(2, neopixel.colors(NeoPixelColors.Green))
         neopixelStrip.setPixelColor(3, neopixel.colors(NeoPixelColors.Green))
     }
+    // setup for the end
     neopixelStrip.show()
     basic.pause(5000)
     basic.clearScreen()
