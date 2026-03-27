@@ -22,13 +22,13 @@ basic.showIcon(IconNames.Happy)
 // gets the distance
 input.onButtonPressed(Button.A, function () {
     distanceNumber = sonar.ping(
-        DigitalPin.P0,
         DigitalPin.P1,
+        DigitalPin.P2,
         PingUnit.Centimeters
     )
     basic.clearScreen()
     basic.showNumber(distanceNumber)
-    basic.showString('cm')
+    basic.showString(' cm')
     if (distanceNumber < 10) {
         // if distance is less than 10 cm
         basic.showIcon(IconNames.No)
