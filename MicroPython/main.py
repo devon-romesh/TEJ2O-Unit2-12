@@ -7,6 +7,7 @@ This module is a Micro:bit MicroPython program that uses a HC-SR04 sonar to find
 from microbit import *
 import neopixel
 
+
 class HCSR04:
     # this class abstracts out the functionality of the HC-SR04 and
     #   returns distance in mm
@@ -51,6 +52,7 @@ class HCSR04:
                 i = -1
         dist = -1 if i < 0 else round(((pre + (k - i) * 8.0 + post) * 8 * 0.172) / 2)
         return dist
+
 
 # startup
 sonar = HCSR04()
