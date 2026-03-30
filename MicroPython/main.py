@@ -9,11 +9,7 @@ import neopixel
 
 
 class HCSR04:
-    # this class abstracts out the functionality of the HC-SR04 and
-    #   returns distance in mm
-    # Trig: pin 1
-    # Echo: pin 2
-    def __init__(self, tpin=pin1, epin=pin2, spin=pin13):
+    def __init__(self, tpin=pin13, epin=pin14, spin=pin13):
         self.trigger_pin = tpin
         self.echo_pin = epin
         self.sclk_pin = spin
@@ -32,14 +28,14 @@ class HCSR04:
         resp = bytearray(length)
         resp[0] = 0xFF
         spi.write_readinto(resp, resp)
-        # find first non zero value
+
         try:
             i, value = next((ind, v) for ind, v in enumerate(resp) if v)
         except StopIteration:
             i = -1
+
         if i > 0:
             pre = bin(value).count("1")
-            # find first non full high value afterwards
             try:
                 k, value = next(
                     (ind, v)
@@ -50,44 +46,44 @@ class HCSR04:
                 k = k + i
             except StopIteration:
                 i = -1
+
         dist = -1 if i < 0 else round(((pre + (k - i) * 8.0 + post) * 8 * 0.172) / 2)
         return dist
 
 
-# startup
 sonar = HCSR04()
 display.show(Image.HAPPY)
 myNeopixelStrip = neopixel.NeoPixel(pin16, 4)
 myNeopixelStrip.clear()
 myNeopixelStrip.show()
 
-# display distance
 while True:
     if button_a.was_pressed():
-        display.scroll(sonar.distance_mm() / 10)
-        display.scroll(" cm")
-        display.show(Image.HAPPY)
+        distance = sonar.distance_mm()
 
-        # is it greater than 10
-        if sonar.distance_mm() / 10 < 10:
-            myNeopixelStrip[0] = (255, 0, 0)
-            myNeopixelStrip[1] = (255, 0, 0)
-            myNeopixelStrip[2] = (255, 0, 0)
-            myNeopixelStrip[3] = (255, 0, 0)
-
-        # if not
+        if distance == -1:
+            display.scroll("Err")
         else:
-            myNeopixelStrip[0] = (0, 255, 0)
-            myNeopixelStrip[1] = (0, 255, 0)
-            myNeopixelStrip[2] = (0, 255, 0)
-            myNeopixelStrip[3] = (0, 255, 0)
+            distance_cm = distance / 10
+            display.scroll(distance_cm)
+            display.scroll(" cm")
 
-        # shows neopixels
-        myNeopixelStrip.show()
-        display.show(Image.YES)
+            if distance_cm < 10:
+                myNeopixelStrip[0] = (255, 0, 0)
+                myNeopixelStrip[1] = (255, 0, 0)
+                myNeopixelStrip[2] = (255, 0, 0)
+                myNeopixelStrip[3] = (255, 0, 0)
+            else:
+                myNeopixelStrip[0] = (0, 255, 0)
+                myNeopixelStrip[1] = (0, 255, 0)
+                myNeopixelStrip[2] = (0, 255, 0)
+                myNeopixelStrip[3] = (0, 255, 0)
 
-        # resets
+            myNeopixelStrip.show()
+            display.show(Image.YES)
+
         sleep(3000)
         myNeopixelStrip.clear()
         myNeopixelStrip.show()
         display.show(Image.HAPPY)
+        
