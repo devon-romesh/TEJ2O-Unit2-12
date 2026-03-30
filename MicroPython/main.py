@@ -51,7 +51,7 @@ class HCSR04:
             try:
                 k, value = next(
                     (ind, v)
-                    for ind, v in enumerate(resp[i:length - 2])
+                    for ind, v in enumerate(resp[i : length - 2])
                     if resp[i + ind + 1] == 0
                 )
                 post = bin(value).count("1") if k else 0
