@@ -1,7 +1,6 @@
 """
 Created by: Devon
 Created on: Mar 2026
-
 This module is a Micro:bit MicroPython program that uses a HC-SR04 sonar to find the distance of a object and will determine if its more than 10 cm away.
 """
 
@@ -65,7 +64,7 @@ class HCSR04:
 
 # startup
 sonar = HCSR04()
-display.show(Image.HAPPY)
+display.show(Image.HAPPY) 
 
 myNeopixelStrip = neopixel.NeoPixel(pin16, 4)
 myNeopixelStrip.clear()
@@ -85,13 +84,15 @@ while True:
             myNeopixelStrip[1] = (255, 0, 0)
             myNeopixelStrip[2] = (255, 0, 0)
             myNeopixelStrip[3] = (255, 0, 0)
-
+            myNeopixelStrip.show()
+            
         # if not
         else:
             myNeopixelStrip[0] = (0, 255, 0)
             myNeopixelStrip[1] = (0, 255, 0)
             myNeopixelStrip[2] = (0, 255, 0)
             myNeopixelStrip[3] = (0, 255, 0)
+            myNeopixelStrip.show()
 
         # show neopixels
         myNeopixelStrip.show()
