@@ -85,13 +85,13 @@ while True:
             myNeopixelStrip[2] = (255, 0, 0)
             myNeopixelStrip[3] = (255, 0, 0)
             myNeopixelStrip.show()
-            
+
         # if not
         else:
-            myNeopixelStrip[0] = (0, 255, 0)
-            myNeopixelStrip[1] = (0, 255, 0)
-            myNeopixelStrip[2] = (0, 255, 0)
-            myNeopixelStrip[3] = (0, 255, 0)
+            myNeopixelStrip[0] = (0, 0, 255)
+            myNeopixelStrip[1] = (0, 0, 255)
+            myNeopixelStrip[2] = (0, 0, 255)
+            myNeopixelStrip[3] = (0, 0, 255)
             myNeopixelStrip.show()
 
         # show neopixels
